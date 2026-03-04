@@ -3,6 +3,8 @@ package com.isep.dbe.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -12,9 +14,10 @@ public class Compte {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private double solde;
+    @Column(nullable = false, precision = 15, scale = 2)
+    private BigDecimal solde;
 
-    @ManyToOne
-    @JoinColumn(name = "client_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_id", nullable = false)
     private Client client;
 }
